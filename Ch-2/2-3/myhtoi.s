@@ -47,7 +47,7 @@ for:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $30, %al
+	cmpb $0x30, %al
 	jne if2
 	movl flag, %eax
 	cmpl $0, %eax
@@ -57,9 +57,9 @@ for:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $78, %al
+	cmpb $0x78, %al
 	je flgin
-	cmpb $58, %al
+	cmpb $0x58, %al
 	jne if2
 flgin:
 	movl $1, flag
@@ -71,11 +71,11 @@ if2:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $30, %al
+	cmpb $0x30, %al
 	jnge elif1
-	cmpb $39, %al
+	cmpb $0x39, %al
 	jnle elif1
-	subb $30, %al
+	subb $0x30, %al
 	movzx %al, %ebx
 	movl -8(%ebp), %eax
 	movl $16, %edx
@@ -88,11 +88,11 @@ elif1:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $41, %al
+	cmpb $0x41, %al
 	jnge elif2
-	cmpb $46, %al
+	cmpb $0x46, %al
 	jnle elif2
-	subb $41, %al
+	subb $0x41, %al
 	movzx %al, %ebx
 	movl -8(%ebp), %eax
 	movl $16, %edx
@@ -106,11 +106,11 @@ elif2:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $61, %al
+	cmpb $0x61, %al
 	jnge outif2
-	cmpb $66, %al
+	cmpb $0x66, %al
 	jnle outif2
-	subb $61, %al
+	subb $0x61, %al
 	movzx %al, %ebx
 	movl -8(%ebp), %eax
 	movl $16, %edx
@@ -124,23 +124,23 @@ cnd1:
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $30, %al
+	cmpb $0x30, %al
 	jnge out1
-	cmpb $39, %al
+	cmpb $0x39, %al
 	jle for
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $41, %al
+	cmpb $0x41, %al
 	jnge out1
-	cmpb $46, %al
+	cmpb $0x46, %al
 	jle for
 	movl 8(%ebp), %edx
 	movl -4(%ebp), %ecx
 	movb (%edx, %ecx, 1), %al
-	cmpb $61, %al
+	cmpb $0x61, %al
 	jnge out1
-	cmpb $66, %al
+	cmpb $0x66, %al
 	jle for
 out1:
 	movl -8(%ebp), %eax 
