@@ -200,26 +200,20 @@ reverse:
 	movl $0, -8(%ebp)
 	jmp cndrev
 forrev:
-	movl -4(%ebp), %eax
-	addl $1, %eax
-	movl %eax, -4(%ebp)
+	addl $1, -4(%ebp)
 cndrev:
 	movl 8(%ebp), %ebx
 	movl -4(%ebp), %ecx
 	leal (%ebx, %ecx, 1), %eax
 	cmpb $0, (%eax)
 	jne forrev
-	movl -4(%ebp), %eax
-	subl $1, %eax
-	movl %eax, -4(%ebp)
+	subl $1, -4(%ebp)
 	movl 8(%ebp), %ebx
 	movl -4(%ebp), %ecx
 	leal (%ebx, %ecx, 1), %eax
-	cmpb $10, (%eax)
+	cmpb $newline, (%eax)
 	jne cndrev2
-	movl -4(%ebp), %eax
-	subl $1, %eax
-	movl %eax, -4(%ebp)	
+	subl $1, -4(%ebp)
 	jmp cndrev2
 forcnd2:
 	movl 8(%ebp), %ebx
@@ -240,12 +234,8 @@ forcnd2:
 	movl -4(%ebp), %ecx
 	leal (%ebx, %ecx, 1), %eax
 	movb %dl, (%eax)
-	movl -4(%ebp), %eax
-	subl $1, %eax
-	movl %eax, -4(%ebp)
-	movl -8(%ebp), %eax
-	addl $1, %eax
-	movl %eax, -8(%ebp)
+	subl $1, -4(%ebp)
+	addl $1, -8(%ebp)
 cndrev2:
 	movl -8(%ebp), %eax
 	cmpl -4(%ebp), %eax

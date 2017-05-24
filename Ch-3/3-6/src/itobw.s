@@ -22,23 +22,21 @@ main:
 	pushl %ebp
 	movl %esp, %ebp
 	andl $-16, %esp
-	subl $2016, %esp
+	subl $2032, %esp
 	movl $-25123, arg1(%esp)
 	leal tstr(%ebp), %eax 
 	movl %eax, arg2(%esp)
 	movl $16, arg3(%esp)
-	call itob
-	leal tstr(%ebp), %eax 
-	movl %eax, arg1(%esp)
-	call reverse
+	movl $30, arg4(%esp)
+	call itobw
 	movl $output1, arg1(%esp)
 	leal tstr(%ebp), %eax 
 	movl %eax, arg2(%esp)
 	call printf		
 	movl $0, arg1(%esp)
 	call exit
-.globl itob
-.type itob, @function
+.globl itobw
+.type itobw, @function
 .equ sign, loc1
 .equ i4, loc2
 .equ j4, loc3
@@ -46,7 +44,8 @@ main:
 .equ integer, p1
 .equ ascii_string, p2
 .equ base, p3
-itob:
+.equ w, p4
+itobw:
 	pushl %ebp
 	movl %esp, %ebp
 	subl $32, %esp
@@ -75,7 +74,7 @@ do:
 	leal (%ebx, %eax, 1), %ecx 
 	movb %dl, (%ecx)
 	addl $1, i4(%ebp)
-	jmp while_itob
+	jmp while_itobw
 do_else:
 	addl $a, %edx
 	subl $10, %edx
@@ -84,26 +83,37 @@ do_else:
 	leal (%ebx, %eax, 1), %ecx 
 	movb %dl, (%ecx)
 	addl $1, i4(%ebp)
-while_itob:
+while_itobw:
 	movl temp(%ebp), %eax
 	movl %eax, integer(%ebp)
 	cmpl $0, %eax
 	jne  do
 	movl sign(%ebp), %eax
 	cmpl $0, %eax
-	jnl itob_if_out
+	jnl itobw_if1_out
 	movl i4(%ebp), %eax
 	movl ascii_string(%ebp), %ebx
 	leal (%ebx, %eax, 1), %ecx
 	movb $45, (%ecx)
 	addl $1, i4(%ebp)
-itob_if_out:
+itobw_if1_out:
+	jmp width_cnd
+width_while:
+	movl i4(%ebp), %edx
+	movl ascii_string(%ebp), %ebx
+	leal (%ebx, %edx, 1), %ecx
+	movb $blank, (%ecx)
+	addl $1, i4(%ebp)
+width_cnd:
+	movl i4(%ebp), %eax
+	movl w(%ebp), %ebx
+	cmpl %ebx, %eax
+	jle width_while
+itobw_if2_out:
 	movl i4(%ebp), %eax
 	movl ascii_string(%ebp), %ebx
 	leal (%ebx, %eax, 1), %ecx
 	movb $0, (%ecx)
-	#movl %ebx, arg1(%esp)
-	#call reverse
 	movl %ebp, %esp
 	popl %ebp
 	ret
