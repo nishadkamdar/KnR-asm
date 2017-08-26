@@ -1,0 +1,12 @@
+.equ	A, 65
+.equ	Z, 90
+.equ	a, 97
+.equ	b, 98
+.equ	z, 122
+.equ 	n, 110
+.equ	t, 116
+.equ 	tab, 9
+.equ	newline, 10
+.equ	blank, 32
+.equ	backspace, 8
+.equ	backslash, 92
